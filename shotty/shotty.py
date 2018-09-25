@@ -5,6 +5,7 @@ session = boto3.Session(profile_name='shotty')
 ec2 = session.resource('ec2')
 
 @click.command()
+@click.option()
 def list_instance():
     "List EC2 Instances"
     for i in ec2.instances.all():
@@ -15,6 +16,8 @@ def list_instance():
         i.state['Name'],
         i.public_dns_name,
         )))
+
+    return
 
 if __name__ == '__main__':
     list_instance()

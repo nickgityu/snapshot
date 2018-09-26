@@ -13,7 +13,8 @@ shotty use the configuration file created by the AWS calc_dist
 
 #running
 
-'pipenv run python shotty/shotty.py <command> <--project=PROJECT>'
+'pipenv run python shotty/shotty.py <command> <subcommand> <--project=PROJECT>'
 
-*command* is list, start, or stop_instance
+*command* is instances, volumes and Snapshots
+*subcommand* -depends on command
 *project* is optional

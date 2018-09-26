@@ -21,7 +21,7 @@ def cli():
 def snapshots():
         """Command for snapshots"""
 
-@snapshots.command('snapshot'
+@snapshots.command('snapshot',
     help="Create snapshots of all volumes")
 @click.option('--project', default = None,
         help="Only Snapshots for project (tag Project:<name>)")
@@ -30,12 +30,24 @@ def create_snapshots(project):
     instances = filter_instances(project)
 
     for i in instances:
-        for v in i.volunmes.all():
-            print("Creating snapshot of {0}".format(v.id))
-            v.create_snapshot(Descripton = "Created by shotty")
+        print("Stopping {0}...".format(i.id))
 
+        i.stop()
+        i.wait_until_stopped()
+
+        for v in i.volumes.all():
+            print("Creating snapshot of {0}".format(v.id))
+            v.create_snapshot(Description = "Created by shotty")
+        print("Starting {0}...".format(i.id))
+
+        i.start()
+        i.wait_until_running()
+
+        print("Next instance...")
+
+    print("Jobs done!")
     return
-    
+
 @snapshots.command('list')
 @click.option('--project', default = None,
         help="Only Snapshots for project (tag Project:<name>)")

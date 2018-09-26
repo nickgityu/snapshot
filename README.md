@@ -13,4 +13,7 @@ shotty use the configuration file created by the AWS calc_dist
 
 #running
 
-'pipenv run python "shotty/shotty.py"'
+'pipenv run python shotty/shotty.py <command> <--project=PROJECT>'
+
+*command* is list, start, or stop_instance
+*project* is optional
